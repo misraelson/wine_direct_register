@@ -41,7 +41,7 @@ class Register extends React.Component {
         total_price: parseFloat(prevState.total_price) + parseFloat(price)
       }))
     }
-    else if(weight > 0 && result != undefined) {
+    else if(weight > 0 && result !== undefined) {
       this.setState( (prevState) => ({
         total_price: parseFloat(prevState.total_price) + parseFloat( weight * result.price )
       }))
@@ -98,55 +98,55 @@ class Register extends React.Component {
         <Form
           className="Form"
           onSubmit={this.apply_discount}
-          >
-        <div className="Button">
-          <Button className="submitButton" type="submit">Apply discount</Button>
-        </div>
+        >
+          <div className="Button">
+            <Button className="submitButton" type="submit">Apply 10% discount!</Button>
+          </div>
         </Form>
       )
     }
     else{
       return(
-        <div className="register-main">
+        <div className="register--form">
           <Form
-            className="Form"
+            className="register-inputs"
             onSubmit={this.handleSubmit}
-            >
-              <Input
-                type="number"
-                name="inputPrice"
-                placeholder="enter the price"
-                value={this.state.price}
-                onChange={this.handlePriceInput}
-              />
-              <Input
-                type="text"
-                name="inputName"
-                placeholder="enter item name"
-                value={this.state.name}
-                onChange={this.handleNameInput}
-              />
-              <Input
-                type="number"
-                name="inputWeight"
-                placeholder="enter the weight"
-                value={this.state.weight}
-                onChange={this.handleWeightInput}
-              />
-              <div className="Button">
-                <Button className="submitButton" type="submit">Add New Item</Button>
-              </div>
-            </Form>
-            <div>
-              <h1>
-                Total:
-              </h1>
-              <h2>
-                { this.state.total_price }
-              </h2>
+          >
+            <Input
+              type="number"
+              name="inputPrice"
+              placeholder="enter the price"
+              value={this.state.price}
+              onChange={this.handlePriceInput}
+            />
+            <Input
+              type="text"
+              name="inputName"
+              placeholder="enter item name"
+              value={this.state.name}
+              onChange={this.handleNameInput}
+            />
+            <Input
+              type="number"
+              name="inputWeight"
+              placeholder="enter the weight"
+              value={this.state.weight}
+              onChange={this.handleWeightInput}
+            />
+            <div className="Button">
+              <Button className="submitButton" type="submit">Add New Item</Button>
             </div>
+          </Form>
+          <div className="total-price-display">
+            <h1>
+              Total:
+            </h1>
+            <h2>
+              { this.state.total_price }
+            </h2>
           </div>
-        )
+        </div>
+      )
     }
   }
 
