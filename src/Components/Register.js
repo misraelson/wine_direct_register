@@ -9,18 +9,15 @@ class Register extends React.Component {
     name: "",
     weight: "",
     discount_applied: false,
+    receipt: [],
   }
 
   apply_discount = (event) => {
     event.preventDefault();
-    // const ten_percent_discount_threshold = 200
-    // if(this.state.total_price >= ten_percent_discount_threshold){
-      this.setState( {
-        total_price: parseFloat(this.state.total_price) - parseFloat( this.state.total_price * .10 ),
-        discount_applied: true,
-      })
-    // }
-
+    this.setState({
+      total_price: parseFloat(this.state.total_price) - parseFloat( this.state.total_price * .10 ),
+      discount_applied: true,
+    })
   }
 
   scan = (price, name, weight) => {
@@ -38,12 +35,15 @@ class Register extends React.Component {
 
     if(price > 0) {
       this.setState( prevState => ({
-        total_price: parseFloat(prevState.total_price) + parseFloat(price)
+        total_price: parseFloat(prevState.total_price) + parseFloat(price),
+        receipt: [...prevState.receipt, {name: "unknown", price: price} ],
       }))
     }
     else if(weight > 0 && result !== undefined) {
+      let unit_price = parseFloat( weight * result.price )
       this.setState( (prevState) => ({
-        total_price: parseFloat(prevState.total_price) + parseFloat( weight * result.price )
+        total_price: parseFloat(prevState.total_price) + unit_price,
+        receipt: [...prevState.receipt, {name: result.name, price: unit_price}  ]
       }))
     }
     else{
@@ -61,16 +61,16 @@ class Register extends React.Component {
   }
 
   handleNameInput = (event) => {
-    let inputName = event.target.name;
-    inputName = event.target.value;
+    // let inputName = event.target.name;
+    let inputName = event.target.value;
     this.setState({ name: inputName })
     // console.log("name state", this.state.name)
   }
 
   handleWeightInput = (event) => {
-    let inputWeight = event.target.name;
+    // let inputWeight = event.target.name;
     // console.log("First call", inputWeight)
-    inputWeight = event.target.value;
+    let inputWeight = event.target.value;
     // console.log("Second call", inputWeight)
     this.setState({ weight: inputWeight })
     // console.log("weight state", this.state.weight)
@@ -93,6 +93,10 @@ class Register extends React.Component {
 
   render() {
     const ten_percent_discount_threshold = 200
+    // const listItems = this.state.receipt.forEach( (item, index) =>
+    //   console.log(item.name, item.price)
+    //   // return {item.name, item.price}
+    // )
     if( this.state.total_price >= ten_percent_discount_threshold && this.state.discount_applied === false ) {
       return(
         <Form
@@ -115,10 +119,11 @@ class Register extends React.Component {
             <Input
               type="number"
               name="inputPrice"
-              placeholder="enter the price"
+              placeholder="enter unit price"
               value={this.state.price}
               onChange={this.handlePriceInput}
             />
+            <h1>OR</h1>
             <Input
               type="text"
               name="inputName"
@@ -126,24 +131,39 @@ class Register extends React.Component {
               value={this.state.name}
               onChange={this.handleNameInput}
             />
+            <span>
+              <h3>+</h3>
+            </span>
             <Input
               type="number"
               name="inputWeight"
-              placeholder="enter the weight"
+              placeholder="bulk weight"
               value={this.state.weight}
               onChange={this.handleWeightInput}
             />
+            <h4>THEN</h4>
             <div className="Button">
-              <Button className="submitButton" type="submit">Add New Item</Button>
+              <Button className="submitButton" type="submit">Add Item</Button>
             </div>
           </Form>
+
           <div className="total-price-display">
+
+            <h1>
+              Receipt:
+            </h1>
+            {this.state.receipt.map( (item, index) => {
+              // console.log(item.name, item.price)
+              return (<li key={index}>{item.name}: {item.price}</li>)
+            })}
+            
             <h1>
               Total:
             </h1>
             <h2>
               { this.state.total_price }
             </h2>
+
           </div>
         </div>
       )
