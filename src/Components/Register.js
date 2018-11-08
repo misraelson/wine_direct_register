@@ -11,25 +11,29 @@ class Register extends React.Component {
   }
 
   scan = (price, name, weight) => {
+    // inventory could equal the results that come back from an API call to our database FYI
+    let inventory = [
+      {name: 'riesling', price: 2},
+      {name: 'chardonnay', price: 10},
+      {name: 'sauvignon blanc', price: 5},
+      {name: 'syrah', price: 15},
+      {name: 'merlot', price: 8},
+      {name: 'pinot noir', price: 12},
+    ]
+    const result = inventory.find( wine => wine.name === name );
+    console.log("result!", result)
     if(price > 0) {
       this.setState( prevState => ({
         total_price: parseFloat(prevState.total_price) + parseFloat(price)
       }))
     }
-    else if(weight > 0) {
-      if(name === "apples"){
+    else if(weight > 0 && result != undefined) {
         this.setState( (prevState) => ({
-          total_price: parseFloat(prevState.total_price) + parseFloat( weight * 2.49 )
+          total_price: parseFloat(prevState.total_price) + parseFloat( weight * result.price )
         }))
-      }
-      if(name === "beaujolais"){
-        this.setState( (prevState) => ({
-          total_price: parseFloat(prevState.total_price) + parseFloat( weight * 15 )
-        }))
-      }
     }
     else{
-      alert("item not recognized");
+      alert("Whoopsie! Something went terribly terribly wrong...you need to enter a price OR a wine name + weight OR you didn't enter anything at all!! It could also be the case that the wine you entered isn't in our inventory :(");
     }
   }
 
