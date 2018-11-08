@@ -3,11 +3,12 @@ function Item(price, weight, name) {
     this.price = price;
     this.weight = weight;
     this.name = name;
-    this.scan = function() {
-      if(this.price) {
+    this.scan = () => {
+      console.log("inside the scan function ", this.price)
+      if(this.price > 0) {
         return this.price
       }
-      else if(this.weight) {
+      else if(this.weight > 0) {
         if(this.name === "apples"){
           return (this.weight * 2.49)
         }
@@ -19,7 +20,7 @@ function Item(price, weight, name) {
         alert("item not recognized");
       }
     }
-    console.log("the name is " + this.price)
+    console.log("inside the ITEM class " + this.price)
   // }
 }
 
