@@ -51,9 +51,10 @@ class Register extends React.Component {
     }
   }
 
+
+  // These next three functions handle the inputs from the form-fields and do a setState
+  // Could prob refactor into a single function via if-statements
   handlePriceInput = (event) => {
-    // let inputPrice = event.target.name;
-    // console.log("First call", inputPrice)
     let inputPrice = event.target.value;
     // console.log("Second call", inputPrice)
     this.setState({ price: inputPrice })
@@ -61,21 +62,16 @@ class Register extends React.Component {
   }
 
   handleNameInput = (event) => {
-    // let inputName = event.target.name;
     let inputName = event.target.value;
     this.setState({ name: inputName })
-    // console.log("name state", this.state.name)
   }
 
   handleWeightInput = (event) => {
-    // let inputWeight = event.target.name;
-    // console.log("First call", inputWeight)
     let inputWeight = event.target.value;
-    // console.log("Second call", inputWeight)
     this.setState({ weight: inputWeight })
-    // console.log("weight state", this.state.weight)
   }
 
+  // Once the inputs have been handled and the Submit button is pressed, we call the scan() function and re-setState
   handleSubmit = (event) => {
     event.preventDefault();
     // scan()👇 is defined above and does much of the heavy lifting
