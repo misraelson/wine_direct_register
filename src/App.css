@@ -2,31 +2,44 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.register-form {
+  padding: 7%;
+  height: 100vh;
+  background-color: #9775ec;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.register-inputs {
+  padding: 0.5%;
+  margin: 1%;
 }
 
-.App-link {
-  color: #61dafb;
+.total-price-display {
+  padding: 15px;
+  font-size: 18px;
+  margin: 15px;
+  /*width: 250px;*/
+  background-color: #f4edce;
+  border-radius: 10px
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-box {
+  margin: 1%;
+  padding: 1%;
+  width: 250px;
+  height: 20px;
+  font-size: 15px;
+}
+
+.Button {
+}
+
+.submitButton {
+  font-size: 20px;
+  padding: 10px;
+  margin: 1%;
+  border-radius: 10px
+}
+
+.submitButton:hover {
+  background-color: #d7c8fb;
 }

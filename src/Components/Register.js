@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Input, Button } from 'reactstrap';
-// import Item from './Item';
 
 class Register extends React.Component {
   state = {
@@ -29,6 +28,7 @@ class Register extends React.Component {
       {name: 'syrah', price: 15},
       {name: 'merlot', price: 8},
       {name: 'pinot noir', price: 12},
+      {name: 'beaujolais', price: 7},
     ]
     // this is the result of a match search of inventory with the inputName
     const result = inventory.find( (wine) => wine.name === name );
@@ -78,9 +78,8 @@ class Register extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    // scan() is defined above and does the heavy lifting
+    // scan()👇 is defined above and does much of the heavy lifting
     this.scan(this.state.price, this.state.name, this.state.weight)
-    // this.apply_discount();
     // this 👇 clears the form fields
     this.setState({
       price: "",
@@ -93,14 +92,11 @@ class Register extends React.Component {
 
   render() {
     const ten_percent_discount_threshold = 200
-    // const listItems = this.state.receipt.forEach( (item, index) =>
-    //   console.log(item.name, item.price)
-    //   // return {item.name, item.price}
-    // )
+
     if( this.state.total_price >= ten_percent_discount_threshold && this.state.discount_applied === false ) {
       return(
         <Form
-          className="Form"
+          className="register-form"
           onSubmit={this.apply_discount}
         >
           <div className="Button">
@@ -111,60 +107,67 @@ class Register extends React.Component {
     }
     else{
       return(
-        <div className="register--form">
+        <div className="register-form">
+
           <Form
             className="register-inputs"
             onSubmit={this.handleSubmit}
           >
             <Input
               type="number"
+              className="input-box"
               name="inputPrice"
               placeholder="enter unit price"
               value={this.state.price}
               onChange={this.handlePriceInput}
             />
-            <h1>OR</h1>
+            <h2>OR</h2>
             <Input
               type="text"
+              className="input-box"
               name="inputName"
               placeholder="enter item name"
               value={this.state.name}
               onChange={this.handleNameInput}
             />
             <span>
-              <h3>+</h3>
+              <h2>+</h2>
             </span>
             <Input
               type="number"
+              className="input-box"
               name="inputWeight"
               placeholder="bulk weight"
               value={this.state.weight}
               onChange={this.handleWeightInput}
             />
-            <h4>THEN</h4>
+            <h1>👇 THEN 👇</h1>
             <div className="Button">
-              <Button className="submitButton" type="submit">Add Item</Button>
+              <Button
+                className="submitButton"
+                type="submit"
+              >
+                Add Item
+              </Button>
             </div>
-          </Form>
 
-          <div className="total-price-display">
+            <div className="total-price-display">
+              <h2>
+                Receipt:
+              </h2>
+              {this.state.receipt.map( (item, index) => {
+                return (<li key={index}>{item.name}: {item.price}</li>)
+              })}
 
-            <h1>
-              Receipt:
-            </h1>
-            {this.state.receipt.map( (item, index) => {
-              // console.log(item.name, item.price)
-              return (<li key={index}>{item.name}: {item.price}</li>)
-            })}
+              <h2>
+                Your Total:
+              </h2>
+              <h2>
+                { this.state.total_price }
+              </h2>
+            </div>
             
-            <h1>
-              Total:
-            </h1>
-            <h2>
-              { this.state.total_price }
-            </h2>
-
-          </div>
+          </Form>
         </div>
       )
     }
