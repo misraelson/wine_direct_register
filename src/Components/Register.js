@@ -108,7 +108,7 @@ class Register extends React.Component {
     else{
       return(
         <div className="register-form">
-
+          <h5>🍷 WINE DIRECT BILL CALCULATOR 🍷</h5>
           <Form
             className="register-inputs"
             onSubmit={this.handleSubmit}
@@ -166,7 +166,7 @@ class Register extends React.Component {
                 { this.state.total_price }
               </h2>
             </div>
-            
+
           </Form>
         </div>
       )
